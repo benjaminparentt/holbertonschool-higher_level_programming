@@ -1,3 +1,5 @@
 #!/usr/bin/python3
-print ("Programming is like building a multilingual puzzle\n")
-#print a sentence
+
+# This Python script prints "Programming is like building a multilingual puzzle" followed by a new line.
+print("Programming is like building a multilingual puzzle")
+

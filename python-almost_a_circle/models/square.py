@@ -1,53 +1,55 @@
 #!/usr/bin/python3
-"""Square model"""
+"""
+This module implements a square object
+"""
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    """class for square"""
-    def __init__(self, size, x=0, y=0, id=None):
-        """initialize the square"""
+    """Square implementstion"""
+
+    def __init__(self, size: int, x=0, y=0, id=None):
+        """initialization
+        """
         super().__init__(size, size, x, y, id)
+        self.__size = size
 
     @property
-    def size(self):
-        """size getter"""
-        return self.width
+    def size(self) -> int:
+        """size getter
+        """
+        return self.__size
 
     @size.setter
-    def size(self, value):
-        """size setter"""
-        self.width = value
-        self.height = value
+    def size(self, value: int):
+        """size setter
+        """
+        self.__size = value
+        self.width = self.height = value
 
-    def __str__(self):
-        """returns information about the shape"""
-        return "[Square] ({:d}) {:d}/{:d} - {:d}".format(self.id,
-                                                         self.x,
-                                                         self.y,
-                                                         self.height)
+    def __str__(self) -> str:
+        """string representation"""
+        id = self.id
+        size = self.__size
+        x = self.x
+        y = self.y
+        return "[Square] ({}) {}/{} - {}".format(id, x, y, size)
 
     def update(self, *args, **kwargs):
-        """updates the square??? i think"""
-        index = 0
-        if args is not None and len(args) != 0:
-            for argument in args:
-                index += 1
-                if index == 1:
-                    self.id = argument
-                elif index == 2:
-                    self.size = argument
-                elif index == 3:
-                    self.x = argument
-                elif index == 4:
-                    self.y = argument
-        else:
-            for key, values in kwargs.items():
-                setattr(self, key, values)
+        """update arguments"""
+        attr = ['id', 'size', 'x', 'y']
+        if args:
+            for at, numb in zip(attr, args):
+                setattr(self, at, numb)
+        elif kwargs:
+            for key, value in kwargs.items():
+                if key in attr:
+                    setattr(self, key, value)
 
-    def to_dictionary(self):
-        """makes a self dictionary"""
-        dictionary = {}
-        for index in ["id", "size", "x", "y"]:
-            dictionary[index] = getattr(self, index)
-        return dictionary
+    def to_dictionary(self) -> dict:
+        """squaere to dictionary"""
+        id = self.id
+        size = self.__size
+        x = self.x
+        y = self.y
+        return {'id': id, 'x': x, 'size': size, 'y': y}

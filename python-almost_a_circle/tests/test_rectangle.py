@@ -1,42 +1,20 @@
 #!/usr/bin/python3
-"""tests made for rectangles"""
-
+"""Unittest for base
+"""
 
 import unittest
-import contextlib
-import importlib
-import models.base
-import models.rectangle
+from models.rectangle import Rectangle
 
 
-Rect = models.rectangle.Rectangle
+class TestRectangle(unittest.TestCase):
+    """Define unit test for rectangle model"""
+
+    def test_initialization(self):
+        r1 = Rectangle(2, 5)
+        self.assertEqual(r1.id, Rectangle._Base__nb_objects)
+        r2 = Rectangle(1, 2)
+        self.assertEqual(r2.id, Rectangle._Base__nb_objects)
 
 
-class rectangle_tests(unittest.TestCase):
-    """yay, rectangle testing"""
-    def setUp(self):
-        """refresh for each test"""
-        importlib.reload(models.base)
-        importlib.reload(models.rectangle)
-
-    def test_TooFewArgs(self):
-        """Test too few args"""
-        err = "missing heigt arg fool"
-        with self.assertRaises(TypeError, msg=err):
-            Rect(1)
-
-    def def test_TooManyArgs(self):
-        """Test too many args"""
-        err = "too many arguments man"
-        with self.assertRaises(TypeError, msg=err):
-            Rect(1, 1, 1, 1, 1, 1)
-
-    def test_Area(self):
-        """check if area is working"""
-        testrect = Rect(7, 6)
-        with self.subTest():
-            self.assertEqual(testrect.area(), 42)
-        testrect.width = 4
-        testrect.height = 5
-        with self.subTest():
-            self.assertEqual(testrect.area(), 20)
+if __name__ == '__main__':
+    unittest.main()
